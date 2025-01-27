@@ -32,7 +32,7 @@ class DatabaseFactory : DataSourceFactory() {
     override fun makeDataSource(): DataSource = DatabaseDataSource()
 }
 
-class AbstractFactoryTest() {
+class AbstractFactoryTest {
     @Test
     fun abstractFactoryTest() {
         val databaseDataSourceFactory = DataSourceFactory.createFactory<DatabaseDataSource>()
