@@ -7,19 +7,19 @@ interface HandlerChain {
     fun addHeader(inputHeader: String): String
 }
 
-class AuthenticationHeader(val token: String?, var next: HandlerChain? = null) : HandlerChain {
+class AuthenticationHeader(private val token: String?, var next: HandlerChain? = null) : HandlerChain {
     override fun addHeader(inputHeader: String) =
         "$inputHeader\nAuthorization: $token"
             .let { next?.addHeader(it) ?: it }
 }
 
-class ContentTypeHeader(val contentType: String, var next: HandlerChain? = null) : HandlerChain {
+class ContentTypeHeader(private val contentType: String, var next: HandlerChain? = null) : HandlerChain {
     override fun addHeader(inputHeader: String): String =
         "$inputHeader\nContentType: $contentType"
             .let { next?.addHeader(it) ?: it }
 }
 
-class BodyPayloadHeader(val body: String, val next: HandlerChain? = null) : HandlerChain {
+class BodyPayloadHeader(private val body: String, val next: HandlerChain? = null) : HandlerChain {
     override fun addHeader(inputHeader: String): String =
         "$inputHeader\n$body"
             .let { next?.addHeader(it) ?: it }
