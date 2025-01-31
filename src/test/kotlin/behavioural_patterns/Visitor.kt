@@ -57,7 +57,7 @@ class Visitor {
         )
 
         val monthlyCostVisitor = MonthlyCostReportVisitor()
-        val monthlyCost = project.map { it.accept(monthlyCostVisitor) }.sum()
+        val monthlyCost = project.sumOf { it.accept(monthlyCostVisitor) }
         println("Monthly cost: $monthlyCost")
         assertEquals(
             actual = monthlyCost,
@@ -65,7 +65,7 @@ class Visitor {
         )
 
         val yearlyCostVisitor = YearlyCostReportVisitor()
-        val yearlyCost = project.map { it.accept(yearlyCostVisitor) }.sum()
+        val yearlyCost = project.sumOf { it.accept(yearlyCostVisitor) }
         println("Yearly cost: $yearlyCost")
         assertEquals(
             actual = yearlyCost,
